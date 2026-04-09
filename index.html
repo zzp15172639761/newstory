@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>单词打气大比拼 H5 Demo</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="topbar-overrides.css">
+</head>
+<body>
+  <div class="app-shell">
+    <div class="orientation-tip">建议横屏体验，舞台会自动缩放适配手机与桌面端。</div>
+
+    <div class="stage-viewport" id="stageViewport">
+      <main class="stage" id="stage" data-mode="3v3" data-phase="ready">
+        <img class="scene-bg" src="assets/background.png" alt="">
+        <div class="scene-overlay"></div>
+        <div class="mid-divider"></div>
+
+        <header class="hud">
+          <div class="top-progress top-progress-left">
+            <span class="progress-label">进度 <strong id="leftScore">0/5</strong></span>
+            <div class="top-progress-track top-progress-track-left" id="leftTopTrack">
+              <span class="top-progress-segment"></span>
+              <span class="top-progress-segment"></span>
+              <span class="top-progress-segment"></span>
+              <span class="top-progress-segment"></span>
+              <span class="top-progress-segment"></span>
+            </div>
+            <div class="top-avatars">
+              <img src="assets/人头像1.png" alt="" class="top-avatar">
+              <img src="assets/人头像2.png" alt="" class="top-avatar">
+              <img src="assets/人头像3.png" alt="" class="top-avatar">
+            </div>
+          </div>
+
+          <div class="top-progress top-progress-right">
+            <div class="top-avatars">
+              <img src="assets/人头像4.png" alt="" class="top-avatar">
+              <img src="assets/人头像5.png" alt="" class="top-avatar">
+              <img src="assets/人头像6.png" alt="" class="top-avatar">
+            </div>
+            <div class="top-progress-track top-progress-track-right" id="rightTopTrack">
+              <span class="top-progress-segment"></span>
+              <span class="top-progress-segment"></span>
+              <span class="top-progress-segment"></span>
+              <span class="top-progress-segment"></span>
+              <span class="top-progress-segment"></span>
+            </div>
+            <span class="progress-label"><strong id="rightScore">0/5</strong> 进度</span>
+          </div>
+        </header>
+
+        <section class="team-panel team-left">
+          <div class="brand-panel">
+            <span class="brand-kicker">Carnival Word Battle</span>
+            <h1>单词打气大比拼</h1>
+            <p>实时对战演示，支持 1v1 / 2v2 / 3v3 与三种题型切换。</p>
+          </div>
+
+          <div class="team-sidecard sidecard-left">
+            <span class="sidecard-title">红方充气值</span>
+            <strong>0 / 5</strong>
+            <div class="progress-track">
+              <div class="progress-fill fill-left" id="leftFill"></div>
+            </div>
+          </div>
+
+          <div class="balloon-shell balloon-shell-left" id="leftBalloonShell">
+            <div class="balloon balloon-left" id="leftBalloon">
+              <span class="balloon-gloss"></span>
+              <span class="hair-puff puff-left"></span>
+              <span class="hair-puff puff-right"></span>
+              <span class="hair-puff puff-left lower-puff"></span>
+              <span class="hair-puff puff-right lower-puff"></span>
+              <div class="face-mask">
+                <span class="brow brow-left"></span>
+                <span class="brow brow-right"></span>
+                <span class="eye eye-left"></span>
+                <span class="eye eye-right"></span>
+                <span class="cheek cheek-left"></span>
+                <span class="cheek cheek-right"></span>
+                <span class="nose"></span>
+                <span class="mouth"></span>
+              </div>
+              <span class="balloon-neck"></span>
+              <span class="burst-ring"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="team-panel team-right">
+          <div class="team-sidecard sidecard-right">
+            <span class="sidecard-title">蓝方充气值</span>
+            <strong>0 / 5</strong>
+            <div class="progress-track">
+              <div class="progress-fill fill-right" id="rightFill"></div>
+            </div>
+          </div>
+
+          <div class="balloon-shell balloon-shell-right" id="rightBalloonShell">
+            <div class="balloon balloon-right" id="rightBalloon">
+              <span class="balloon-gloss"></span>
+              <span class="hair-puff puff-left"></span>
+              <span class="hair-puff puff-right"></span>
+              <span class="hair-puff puff-left lower-puff"></span>
+              <span class="hair-puff puff-right lower-puff"></span>
+              <div class="face-mask">
+                <span class="brow brow-left"></span>
+                <span class="brow brow-right"></span>
+                <span class="eye eye-left"></span>
+                <span class="eye eye-right"></span>
+                <span class="cheek cheek-left"></span>
+                <span class="cheek cheek-right"></span>
+                <span class="nose"></span>
+                <span class="mouth"></span>
+              </div>
+              <span class="balloon-neck"></span>
+              <span class="burst-ring"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="board-zone">
+          <div class="board-frame">
+            <img src="assets/board-frame.png" alt="题目板" class="board-image">
+            <div class="board-content">
+              <div class="board-head">
+                <span class="question-type" id="questionType">看图选词</span>
+                <span class="question-index" id="questionIndex">01 / 05</span>
+              </div>
+
+              <div class="prompt-stage" id="promptStage"></div>
+
+              <div class="option-stack" id="optionStack"></div>
+
+              <div class="board-footer">
+                <div class="footer-copy">
+                  <span>实时同步演示</span>
+                  <strong id="hintText">红方答对会立刻打气，蓝方由系统自动模拟对战。</strong>
+                </div>
+                <button class="play-control" id="playBtn" type="button" aria-label="开始或重新开始">
+                  <span class="play-triangle"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="scene-decoration">
+          <img class="pedestal-strip" src="assets/pedestals.png" alt="">
+          <img class="pipe-strip" src="assets/pipes.png" alt="">
+
+          <div class="characters characters-left" id="leftCharacters"></div>
+          <div class="characters characters-right" id="rightCharacters"></div>
+
+          <div class="pump-flashes flashes-left" id="leftFlashes">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="pump-flashes flashes-right" id="rightFlashes">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="countdown" id="countdown"></div>
+        <div class="toast" id="toast"></div>
+        <div class="wrong-feedback" id="wrongFeedback">
+          <img src="assets/f84a4b856b718cdab9c255771e96d1a1.png" alt="答错反馈">
+        </div>
+        <div class="winner-banner" id="winnerBanner"></div>
+        <div class="confetti-layer" id="confettiLayer"></div>
+
+        <div class="bottom-timer">
+          <div class="bottom-timer-pill">
+            <span class="timer-label">计时</span>
+            <img class="bottom-timer-image" src="assets/倒计时.png" alt="倒计时">
+            <strong id="timer">00:00</strong>
+          </div>
+        </div>
+
+        <div class="control-panel">
+          <div class="mode-switcher" id="modeSwitcher">
+            <button class="mode-btn" data-mode="1v1" type="button">1v1</button>
+            <button class="mode-btn" data-mode="2v2" type="button">2v2</button>
+            <button class="mode-btn active" data-mode="3v3" type="button">3v3</button>
+          </div>
+          <button class="restart-btn" id="restartBtn" type="button">重新开始</button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
