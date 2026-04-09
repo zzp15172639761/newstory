@@ -15,6 +15,12 @@ const RIGHT_PROGRESS_IMAGES = [
   "assets/蓝4.png",
   "assets/蓝5.png"
 ];
+const COUNTDOWN_IMAGES = {
+  "3": "assets/3.png",
+  "2": "assets/2.png",
+  "1": "assets/1.png",
+  "GO!": "assets/GO.png"
+};
 
 const questions = [
   {
@@ -584,7 +590,11 @@ function runCountdown() {
   const steps = ["3", "2", "1", "GO!"];
   steps.forEach((step, index) => {
     const timerId = window.setTimeout(() => {
-      els.countdown.textContent = step;
+      els.countdown.innerHTML = `
+        <img class="countdown-base" src="assets/图层 95.png" alt="">
+        <img class="countdown-bg" src="assets/组 35.png" alt="">
+        <img class="countdown-step${step === "1" ? " is-one" : ""}" src="${COUNTDOWN_IMAGES[step]}" alt="${step}">
+      `;
       els.countdown.classList.remove("show");
       void els.countdown.offsetWidth;
       els.countdown.classList.add("show");
@@ -609,6 +619,8 @@ function beginPlay() {
   state.phase = "playing";
   state.answerLocked = false;
   els.stage.dataset.phase = "playing";
+  els.countdown.classList.remove("show");
+  els.countdown.innerHTML = "";
   updateBalloons();
   renderQuestion();
   unlockOptions();

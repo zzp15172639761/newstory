@@ -282,7 +282,7 @@ body {
 
 .balloon-shell {
   position: absolute;
-  bottom: 120px;
+  bottom: 104px;
   width: 0;
   height: 0;
   z-index: 2;
@@ -322,19 +322,18 @@ body {
 }
 
 .balloon-left {
-  
-  background:
-    radial-gradient(circle at 30% 18%, rgba(255, 255, 255, 0.92) 0 12%, rgba(255, 255, 255, 0) 13%),
-    linear-gradient(180deg, #fff8bf 0%, #ffd96f 24%, #ffb95a 58%, #ff925d 100%);
-  border: 6px solid rgba(255, 110, 74, 0.85);
+  background: url("assets/气球.png") center bottom / contain no-repeat;
+  border: none;
 }
 
 .balloon-right {
   left: -238px;
-  background:
-    radial-gradient(circle at 30% 18%, rgba(255, 255, 255, 0.92) 0 12%, rgba(255, 255, 255, 0) 13%),
-    linear-gradient(180deg, #d5f9ff 0%, #8bdfff 32%, #42b3ff 64%, #1384f0 100%);
-  border: 6px solid rgba(21, 120, 241, 0.82);
+  background: url("assets/蓝气球.png") center bottom / contain no-repeat;
+  border: none;
+}
+
+.balloon > :not(.burst-ring) {
+  display: none;
 }
 
 .balloon.is-pumping {
@@ -950,7 +949,7 @@ body {
 }
 
 .characters.is-slip::before {
-  background-image: url("assets/f84a4b856b718cdab9c255771e96d1a1.png");
+  background-image: url("assets/电击.png");
   background-repeat: no-repeat;
   background-size: 118% auto;
   background-position: center bottom;
@@ -1136,20 +1135,51 @@ body {
 
 .countdown {
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) scale(0.6);
-  font-size: 188px;
-  font-weight: 900;
-  letter-spacing: 0.03em;
-  color: #fff;
-  text-shadow: 0 16px 0 rgba(255, 111, 67, 0.38), 0 0 42px rgba(255, 255, 255, 0.88);
+  top:50%;
+  transform: translate(-50%, -50%);
   opacity: 0;
   z-index: 12;
   pointer-events: none;
 }
 
+.countdown-base,
+.countdown-bg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  width: 1920px;
+  max-width: none;
+  height: auto;
+}
+
+.countdown-base {
+  z-index: 0;
+}
+
+.countdown-bg {
+  z-index: 1;
+  filter: drop-shadow(0 16px 22px rgba(56, 170, 255, 0.18));
+}
+
+.countdown-step {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 260px;
+  height: auto;
+  transform: translate(-50%, calc(-50% - 540px));
+  z-index: 2;
+  filter: drop-shadow(0 16px 22px rgba(120, 73, 18, 0.22));
+}
+
+.countdown-step.is-one {
+  width: 208px;
+}
+
 .countdown.show {
-  animation: countdownPop 0.7s ease forwards;
+  opacity: 1;
 }
 
 .toast {
@@ -1338,6 +1368,10 @@ body {
   100% { opacity: 0; transform: translate(-50%, -50%) scale(1.2); }
 }
 
+.countdown.show .countdown-step {
+  animation: countdownPop 0.7s ease forwards;
+}
+
 @keyframes toastRise {
   0% { opacity: 0; transform: translateX(-50%) translateY(18px); }
   12%,
@@ -1452,5 +1486,43 @@ body {
 }
 
 .stage[data-mode="2v2"] .characters-right.is-slip::before {
+  background-position: right bottom;
+}
+
+.stage[data-phase="playing"] .characters.is-slip::before,
+.stage[data-phase="countdown"] .characters.is-slip::before,
+.stage[data-phase="ready"] .characters.is-slip::before {
+  background-image: url("assets/电击.png");
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 118% auto;
+}
+
+.stage[data-phase="playing"] .characters-left.is-slip::before {
+  background-position: -22px bottom;
+}
+
+.stage[data-phase="playing"] .characters-right.is-slip::before {
+  background-position: -11px bottom;
+}
+
+.stage[data-phase="playing"][data-mode="1v1"] .characters.is-slip::before,
+.stage[data-phase="playing"][data-mode="2v2"] .characters.is-slip::before {
+  background-size: auto 100%;
+}
+
+.stage[data-phase="playing"][data-mode="1v1"] .characters-left.is-slip::before {
+  background-position: 0 bottom;
+}
+
+.stage[data-phase="playing"][data-mode="1v1"] .characters-right.is-slip::before {
+  background-position: 100% bottom;
+}
+
+.stage[data-phase="playing"][data-mode="2v2"] .characters-left.is-slip::before {
+  background-position: left bottom;
+}
+
+.stage[data-phase="playing"][data-mode="2v2"] .characters-right.is-slip::before {
   background-position: right bottom;
 }
